@@ -8,13 +8,13 @@ const carouselItem = [
         image: banner1,
     },
     {
-        slogan: '',
-        subSlogan: '',
+        slogan: '内置了常见问题的解决方案',
+        subSlogan: '国际化，路由配置，状态管理应有尽有',
         image: banner1,
     },
     {
-        slogan: '',
-        subSlogan: '',
+        slogan: '接入可视化增强工具AUX',
+        subSlogan: '实现灵活的区块式开发',
         image: banner1,
     },
 ]
@@ -23,7 +23,7 @@ const carouselItem = [
 <template>
     <div class="login_banner">
         <div class="banner_inner">
-            <a-carousel class="carousel" animation-name="fade">
+            <a-carousel class="carousel" animation-name="fade" auto-play show-arrow="hover">
                 <a-carousel-item v-for="item in carouselItem" :key="item.slogan">
                     <div :key="item.slogan" class="carousel_item">
                         <div class="carousel_title">{{ item.slogan }}</div>

@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import { appRoutes } from './routes';
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -12,6 +13,7 @@ const router = createRouter({
             name: 'login',
             component: () => import('@/views/login/index.vue')
         },
+        ...appRoutes,
     ]
 })
 

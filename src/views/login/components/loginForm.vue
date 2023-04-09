@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import { ValidatedError } from '@arco-design/web-vue/es/form/interface'
+  import { Message } from '@arco-design/web-vue'
 import { reactive, ref } from "vue"
+  import { useRouter } from 'vue-router'
+import { useUserStore } from "@/store"
+
+const userStore = useUserStore()
+
+const router = useRouter()
 
 const loginFormRefs = ref(null)
 
@@ -15,19 +23,51 @@ const rules = {
     password: [{ required: true, message: '密码不能为空' }],
 }
 
+const loading = ref(false)
+
 const loginConfig = reactive({
     rememberPassword: false,
+    username: '',
+    password: '',
 })
 
 const handleSubmit = () => {
     console.log(loginFormRefs)
+    if(!loginFormRefs.value) {
+        return
+    }
+    loginFormRefs.value.validate((errors: Record<string, ValidatedError> | undefined) => {
+        if(!errors) {
+            loading.value = true
+            try {
+                const { username, password } = userInfo
+                if(username == 'admin' && password == '123') {
+                    const { redirect, ...othersQuery } = router.currentRoute.value.query;
+                    router.push({
+                        name: (redirect as string) || 'Layout',
+                        query: {
+                            ...othersQuery,
+                        },
+                    });
+                    Message.success('登录成功');
+                    const { rememberPassword } = loginConfig;
+                    // 实际生产环境需要进行加密存储。
+                    // The actual production environment requires encrypted storage.
+                    loginConfig.username = rememberPassword ? username : '';
+                    loginConfig.password = rememberPassword ? password : '';
+                }
+            } catch (err) {
+                errorMessage.value = (err as Error).message
+            } finally {
+                loading.value = false
+            }
+        }
+    })
 }
 
 const setRememberPassword = (value: boolean) => {
     loginConfig.rememberPassword = value
 }
-
-const loading = ref(false)
 
 </script>
 
