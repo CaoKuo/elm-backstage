@@ -59,7 +59,6 @@ const setCollapsed = () => {
                 <a-layout-content>
                     <router-view />
                 </a-layout-content>
-                <a-layout-footer>Footer</a-layout-footer>
             </a-layout>
         </a-layout>
     </a-layout>
@@ -101,7 +100,10 @@ const setCollapsed = () => {
         }
     }
     .layout_content {
-        
+        min-height: 100vh;
+        overflow-y: hidden;
+        background-color: rgb(242, 243, 245);
+        transition: padding 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
     }
 }
 </style>
