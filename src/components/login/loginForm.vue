@@ -14,8 +14,8 @@ const loginFormRefs = ref(null)
 const errorMessage = ref('')
 
 const userInfo = reactive({
-    username: '',
-    password: '',
+    username: 'admin',
+    password: '123',
 })
 
 const rules = {

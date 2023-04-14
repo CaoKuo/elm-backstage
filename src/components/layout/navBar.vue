@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useAppStore, useUserStore } from "@/store"
-import { useRouter } from "vue-router"
-
+import { useRoute, useRouter, RouteRecordRaw } from "vue-router"
 
 const appStore = useAppStore()
 const userStore = useUserStore()
 
 const router = useRouter()
+const route = useRoute()
 
 const avatar = computed(() => {
     return userStore.avatar

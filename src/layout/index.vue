@@ -45,7 +45,7 @@ const setCollapsed = () => {
             :width="menuWidth"
             @collapse="setCollapsed"
         >
-            <div class="menu-wrapper">
+            <div class="menu_wrapper">
                 <Menu />
             </div>
         </a-layout-sider>
@@ -97,6 +97,9 @@ const setCollapsed = () => {
 
         > :deep(.arco-layout-sider-children) {
             overflow-y: hidden;
+        }
+        .menu_wrapper {
+            height: calc(100% - 60px);
         }
     }
     .layout_content {

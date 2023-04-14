@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LoginBanner from '@/components/login/loginBanner.vue'
-import LoginForm from '@/components/login/loginBanner.vue'
+import LoginForm from '@/components/login/loginForm.vue'
 
 </script>
 
