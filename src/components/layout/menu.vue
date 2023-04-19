@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { Message} from '@arco-design/web-vue'
 import { useRoute, useRouter, RouteRecordRaw } from 'vue-router'
 import { useAppStore } from '@/store';
@@ -32,7 +32,39 @@ const collapsed = computed({
     }
 })
 
-const selectedKeys = ref([route.name])
+const selectedKeys = ref<string[]>([])
+
+const openKeys = ref<string[]>([])
+
+watch(
+    () => menuList.value,
+    (menu) => {
+        selectedKeys.value = [];
+        if(menu.length) {
+            menu.forEach(e => {
+                let target = route.matched.find((item) => item.name == e.name);
+                if (target) {
+					selectedKeys.value.push(target.name as string);
+					if (target.children) {
+						if (!openKeys.value.includes(target.name as string)) {
+							openKeys.value.push(target.name as string);
+						}
+						target.children.forEach((e) => {
+							let secTarget = route.matched.find((item) => item.name == e.name);
+							if (secTarget) {
+								selectedKeys.value.push(secTarget.name as string);
+							}
+						});
+					}
+				}
+            })
+        }
+    },
+    {
+        immediate: true,
+        deep: true,
+    }
+)
 
 const onClickMenuItem = (key: string) => {
     Message.info({ content: `You select ${key}`, showIcon: true });
@@ -51,8 +83,10 @@ const onCollapse = () => {
     <a-menu
         :style="{ height: '100%' }"
         v-model:selected-keys="selectedKeys"
+        v-model:open-keys="openKeys"
         :collapsed="collapsed"
         show-collapse-button
+        auto-open-selected
         :collapsed-width="48"
         breakpoint="xl"
         @collapse="onCollapse"

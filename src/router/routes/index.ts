@@ -24,9 +24,6 @@ export const appRoutes = [
                     isSecond: true,
                 },
                 component: () => import('@/views/manage/index.vue'),
-                redirect: {
-                    name: 'userManage',
-                },
                 children: [
                     {
                         path: 'user',

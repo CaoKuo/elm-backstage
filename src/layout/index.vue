@@ -9,6 +9,7 @@ import {
 } from '@arco-design/web-vue/es/icon'
 import navBar from '@/components/layout/navBar.vue'
 import Menu from '@/components/layout/menu.vue'
+import baseBreadcrumb from '@/components/layout/baseBreadcrumb.vue'
 
 const appStore = useAppStore()
 
@@ -51,11 +52,7 @@ const setCollapsed = () => {
         </a-layout-sider>
         <a-layout class="layout_content" :style="paddingStyle">
             <a-layout style="padding: 0 24px">
-                <a-breadcrumb :style="{ margin: '16px 0' }">
-                    <a-breadcrumb-item>Home</a-breadcrumb-item>
-                    <a-breadcrumb-item>List</a-breadcrumb-item>
-                    <a-breadcrumb-item>App</a-breadcrumb-item>
-                </a-breadcrumb>
+                <baseBreadcrumb />
                 <a-layout-content>
                     <router-view />
                 </a-layout-content>
